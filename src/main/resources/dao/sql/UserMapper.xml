@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 本XML文件相当于对DAO接口的实现; 属性namespace对应DAO接口名称. -->
+<mapper namespace="dao.sql.UserEntitySQL">
+
+<!-- item 表示一条记录-->
+       <!-- ============================= INSERT ============================= -->
+       <!--
+       <insert id="insert" parameterType="UserEntity"
+               keyProperty="userId"    keyColumn="userId":SQL
+                     flushCache="true"	statementType="PREPARED"  timeout="20"  useGeneratedKeys="xx" >
+       </insert>
+       -->
+       <insert id="insert">
+              insert into USERS(userId,nickname,firstName,lastName,password)
+              values (#{userId},#{nickname},#{firstName},#{lastName},#{password})
+       </insert>
+
+       <insert id="insertBatch" >
+              insert into USERS(userId,nickname,firstName,lastName,password)
+              values
+              <foreach collection="list" item="item" index="index" separator="," >
+                     (#{item.userId},#{item.nickname},#{item.firstName},#{item.lastName},#{item.password})
+              </foreach>
+       </insert>
+
+
+       <!-- ============================= UPDATE ============================= -->
+       <update id="update">
+              update USERS
+              <set>
+                     <if test="nickname != null">nickname=#{nickname},</if>
+                     <if test="firstName != null">firstName=#{firstName},</if>
+                     <if test="lastName != null">lastName=#{lastName},</if>
+                     <if test="password != null">password=#{password},</if>
+              </set>
+              where  userId=#{userId}
+       </update>
+
+
+
+       <!-- ============================= DELETE ============================= -->
+       <delete id="deleteAll" >
+              delete from USERS
+       </delete>
+
+       <delete id="deleteById" >
+              delete from USERS
+              where  userId=#{userId}
+       </delete>
+
+       <delete id="deleteByIds" >
+              delete from USERS
+              where  userId in
+              <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                     #{item}
+              </foreach>
+       </delete>
+
+       <delete id="deleteBatch" >
+              delete
+              from USERS
+              where  userId in
+              <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                     #{item.userId}
+              </foreach>
+       </delete>
+
+
+       <!-- ============================= SELECT ============================= -->
+       <!-- 属性id对应DAO接口的同名方法; 属性resultType对应完整的类名或别名, 也可用属性resultMap指向自定义的类型-->
+       <select id="findById" resultType="UserEntity">
+              select *
+              from USERS where userId=#{userId}
+       </select>
+
+
+       <select id="findALL"  resultType="UserEntity">
+              select *
+              from USERS
+       </select>
+
+
+</mapper>
