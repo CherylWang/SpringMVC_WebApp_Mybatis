@@ -12,12 +12,12 @@ if you want to run this application yourself, you have to edit the file /src/mai
 the database should have a table named "USERS" with attributes like this:
 
 
-Field                        Type
-userIdint(11)                NOT NULL
-nicknamevarchar(10)          NULL
-firstNamevarchar(10)         NULL
-lastNamevarchar(10)          NULL
-passwordvarchar(10)          NULL
+Field     Type
+userId    int(11)             NOT NULL
+nickname  varchar(10)         NULL
+firstName varchar(10)         NULL
+lastName  varchar(10)         NULL
+password  varchar(10)         NULL
 
 
 
