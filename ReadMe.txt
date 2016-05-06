@@ -1,4 +1,4 @@
-dependces :
+dependences :
 
 IDEA 14.X
 apache-tomcat-8.0.33
